@@ -1,4 +1,5 @@
-# Shrand (SHoot RANDom)
+# Shrand
+(SHoot RANDom)
 
 Controls: Launch the "rocket" by pressing spacebar
 
