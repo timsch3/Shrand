@@ -1,0 +1,192 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Scenes/Shot01.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Target01.tscn" type="PackedScene" id=2]
+[ext_resource path="res://new_styleboxflat.tres" type="StyleBox" id=3]
+[ext_resource path="res://Scripts/MAIN.gd" type="Script" id=4]
+[ext_resource path="res://Scripts/Bar.gd" type="Script" id=5]
+[ext_resource path="res://Scripts/EnemyBar.gd" type="Script" id=6]
+[ext_resource path="res://new_dynamicfont.tres" type="DynamicFont" id=7]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 318.341, 27.1588 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 305.659, 10 )
+
+[node name="MAIN" type="Node"]
+pause_mode = 2
+script = ExtResource( 4 )
+
+[node name="Background" type="ColorRect" parent="."]
+margin_left = -133.0
+margin_top = -99.0
+margin_right = 487.0
+margin_bottom = 679.0
+color = Color( 0.137255, 0.129412, 0.152941, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Countdown" type="Timer" parent="."]
+pause_mode = 1
+wait_time = 60.0
+one_shot = true
+autostart = true
+
+[node name="GameOver" type="Timer" parent="."]
+one_shot = true
+
+[node name="Level01" type="Node2D" parent="."]
+pause_mode = 1
+
+[node name="EnemyBar" type="Area2D" parent="Level01"]
+position = Vector2( 180, 100 )
+collision_layer = 2
+collision_mask = 2
+script = ExtResource( 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level01/EnemyBar"]
+visible = false
+position = Vector2( -2.25137, -4.32081 )
+shape = SubResource( 1 )
+
+[node name="Target01" parent="Level01/EnemyBar" instance=ExtResource( 2 )]
+
+[node name="SpawnDelay" type="Timer" parent="Level01/EnemyBar"]
+one_shot = true
+
+[node name="ColorRect" type="ColorRect" parent="Level01/EnemyBar"]
+margin_left = -300.0
+margin_top = -30.0
+margin_right = 300.0
+margin_bottom = 10.0
+color = Color( 0.164706, 0.2, 0.176471, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Bar" type="Area2D" parent="Level01"]
+position = Vector2( 180, 600 )
+script = ExtResource( 5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level01/Bar"]
+visible = false
+shape = SubResource( 2 )
+
+[node name="Shot01" parent="Level01/Bar" instance=ExtResource( 1 )]
+
+[node name="SpawnDelay" type="Timer" parent="Level01/Bar"]
+wait_time = 2.0
+one_shot = true
+
+[node name="ColorRect" type="ColorRect" parent="Level01/Bar"]
+margin_left = -300.0
+margin_top = -10.0
+margin_right = 300.0
+margin_bottom = 10.0
+color = Color( 0.188235, 0.188235, 0.184314, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="UI" type="Control" parent="."]
+pause_mode = 2
+margin_right = 360.0
+margin_bottom = 640.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBox" type="HBoxContainer" parent="UI"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -180.0
+margin_right = 180.0
+margin_bottom = 70.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Shots" type="Label" parent="UI/HBox"]
+margin_left = 57.0
+margin_top = 25.0
+margin_right = 116.0
+margin_bottom = 45.0
+custom_styles/normal = ExtResource( 3 )
+custom_fonts/font = ExtResource( 7 )
+text = "Shots: "
+
+[node name="Spacer" type="Label" parent="UI/HBox"]
+margin_left = 120.0
+margin_top = 28.0
+margin_right = 128.0
+margin_bottom = 42.0
+text = "  "
+
+[node name="Time" type="Label" parent="UI/HBox"]
+margin_left = 132.0
+margin_top = 25.0
+margin_right = 222.0
+margin_bottom = 45.0
+custom_styles/normal = ExtResource( 3 )
+custom_fonts/font = ExtResource( 7 )
+text = "Time left: "
+align = 1
+valign = 1
+
+[node name="Spacer2" type="Label" parent="UI/HBox"]
+margin_left = 226.0
+margin_top = 28.0
+margin_right = 234.0
+margin_bottom = 42.0
+text = "  "
+
+[node name="Points" type="Label" parent="UI/HBox"]
+margin_left = 238.0
+margin_top = 25.0
+margin_right = 302.0
+margin_bottom = 45.0
+custom_styles/normal = ExtResource( 3 )
+custom_fonts/font = ExtResource( 7 )
+text = "Points: "
+align = 1
+valign = 1
+
+[node name="HBox2" type="HBoxContainer" parent="UI"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -148.5
+margin_top = -41.5
+margin_right = 148.5
+margin_bottom = 41.5
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GameOver" type="Label" parent="UI/HBox2"]
+margin_left = 6.0
+margin_right = 291.0
+margin_bottom = 125.0
+grow_horizontal = 2
+grow_vertical = 2
+custom_styles/normal = ExtResource( 3 )
+custom_fonts/font = ExtResource( 7 )
+text = "
+GAME OVER
+
+
+press key to restart                    
+  "
+align = 1
+valign = 1
+[connection signal="timeout" from="Countdown" to="." method="_on_Countdown_timeout"]
+[connection signal="timeout" from="GameOver" to="." method="_on_GameOver_timeout"]
+[connection signal="timeout" from="Level01/EnemyBar/SpawnDelay" to="Level01/EnemyBar" method="_on_SpawnDelay_timeout"]
+[connection signal="timeout" from="Level01/Bar/SpawnDelay" to="Level01/Bar" method="_on_SpawnDelay_timeout"]
